@@ -2,13 +2,22 @@ import pandas as pd
 
 # a)
 data = {
-    "Filial A": [7.8, 6.7, 2.8, 5.6, 8.3],
-    "Filial B": [6.2, 4.1, 9.2, 4.5, 7.5],
-    "Filial C": [9.8, 7.3, 3.4, 7.2, 9.1]
+        "Segurança": [7.8, 6.2, 9.8],
+        "Financeiro": [6.7, 4.1, 7.3],
+        "Transporte": [2.8, 9.2, 3.4],
+        "Tecnologia": [5.6, 4.5, 7.2],
+        "Marketing": [8.3, 7.5, 9.1]
 }
 
-df = pd.DataFrame(data, index = ["Segurança", "Financeiro", "Transporte", "Tecnologia", "Marketing"])
-print(df)
+df = pd.DataFrame(data, index = ["Filial A", "Filial B", "Filial C"])
 
 # b)
-pd.insert("Media Desempenho", df.mean(), True)
+df["Media Desempenho"] = df.mean(axis=1)
+
+df["Melhor Desempenho"] = df.idxmax(axis=1)
+
+print(df.sum(numeric_only=True))
+
+# c)
+df.to_csv("filiais.csv")
+pd.read_csv("filiais.csv")
